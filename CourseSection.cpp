@@ -150,90 +150,59 @@ bool Schedule::isGood(const vector<Section>& sections_to_take) const{
 
     // take note of everyday's start time and end time
     int size = sections_to_take.size();
-    vector<int> monday;
-    vector<int> tuesday;
-    vector<int> wednesday;
-    vector<int> thursday;
-    vector<int> friday;
-
-    for(int i = 0; i < size; i++){
-        // take notes of the start and end time
-        int start = sections_to_take[i].get_startTime();
-        int end = sections_to_take[i].get_startTime();
-
-        // determine when the section will take place, and push to corresponding vectors
-        if(sections_to_take[i].get_dates()[0]) {monday.push_back(start); monday.push_back(end); }
-        if(sections_to_take[i].get_dates()[1]) {tuesday.push_back(start); tuesday.push_back(end); }
-        if(sections_to_take[i].get_dates()[2]) {wednesday.push_back(start); wednesday.push_back(end); }
-        if(sections_to_take[i].get_dates()[3]) {thursday.push_back(start); thursday.push_back(end); }
-        if(sections_to_take[i].get_dates()[4]) {friday.push_back(start); friday.push_back(end); }       
-    }
-
-    int monSize = monday.size();
-    int tueSize = tuesday.size();
-    int wedSize = wednesday.size();
-    int thurSize = thursday.size();
-    int friSize = friday.size();
+    vector< vector<int> > week(5);
 
     // Attention. This is the core of all the codes. Determine whether the selected fits the schedule. 
     // Attention. Take extra care of index exception. 
+    // this nested for loop mainly deals with populating the week vector
+    // in the format of start, end, start, end, ...
+    // the index of the week represents the day of the week
+    for(int i = 0; i < size; i++){
+        // take notes of the start and end time
+        int start = sections_to_take[i].get_startTime();
+        int end = sections_to_take[i].get_endTime();
 
-    // Monday
-    for(int i = 0; i < monSize; i += 2){
-        for(int j = i; j < monSize; j+= 2){
-            // four possibilities of failing to become a good schedule. 
-            if(j != i && ((monday[j] >= monday[i] && monday[j] <= monday[i+1])||(monday[j+1] >= monday[i] && monday[j+1] <= monday[i+1]))){
-                if((monday[j] <= monday[i] && monday[j+1] >= monday[i+1])||(monday[j] >= monday[i] && monday[j+1] <= monday[i+1])){
-                    return false;
-                }
-            }
+        // update the values of of "week"
+        for(int j = 0; j < 5; j++){    
+            if(sections_to_take[i].get_dates()[j]) {    
+                week[j].push_back(start);
+                week[j].push_back(end);
+            }       
         }
     }
-    // Tuesday
-    for(int i = 0; i < tueSize; i += 2){
-        for(int j = i; j < tueSize; j+= 2){
-            // four possibilities of failing to become a good schedule. 
-            if(j != i && ((tuesday[j] >= tuesday[i] && tuesday[j] <= tuesday[i+1])||(tuesday[j+1] >= tuesday[i] && tuesday[j+1] <= tuesday[i+1]))){
-                if((tuesday[j] <= tuesday[i] && tuesday[j+1] >= tuesday[i+1])||(tuesday[j] >= tuesday[i] && tuesday[j+1] <= tuesday[i+1])){
-                    return false;
-                }
-            }
-        }
-    }
-    // Wednesday
-    for(int i = 0; i < wedSize; i += 2){
-        for(int j = i; j < wedSize; j+= 2){
-            // four possibilities of failing to become a good schedule. 
-            if(j != i && ((wednesday[j] >= wednesday[i] && wednesday[j] <= wednesday[i+1])||(wednesday[j+1] >= wednesday[i] && wednesday[j+1] <= wednesday[i+1]))){
-                if((wednesday[j] <= wednesday[i] && wednesday[j+1] >= wednesday[i+1])||(wednesday[j] >= wednesday[i] && wednesday[j+1] <= wednesday[i+1])){
-                    return false;
-                }
-            }
-        }
-    }
-    // Thursday
-    for(int i = 0; i < thurSize; i += 2){
-        for(int j = i; j < thurSize; j+= 2){
-            // four possibilities of failing to become a good schedule. 
-            if(j != i && ((thursday[j] >= thursday[i] && thursday[j] <= thursday[i+1])||(thursday[j+1] >= thursday[i] && thursday[j+1] <= thursday[i+1]))){
-                if((thursday[j] <= thursday[i] && thursday[j+1] >= thursday[i+1])||(thursday[j] >= thursday[i] && thursday[j+1] <= thursday[i+1])){
-                    return false;
-                }
-            }
-        }
-    }
-    // Friday
-    for(int i = 0; i < friSize; i += 2){
-        for(int j = i; j < friSize; j+= 2){
-            // four possibilities of failing to become a good schedule. 
-            if(j != i && ((friday[j] >= friday[i] && friday[j] <= friday[i+1])||(friday[j+1] >= friday[i] && friday[j+1] <= friday[i+1]))){
-                if((friday[j] <= friday[i] && friday[j+1] >= friday[i+1])||(friday[j] >= friday[i] && friday[j+1] <= friday[i+1])){
-                    return false;
-                }
+
+    for(int i = 0; i < 5; i++){
+        int weekDaySize = week[i].size();
+        for(int j = 0; j < weekDaySize; j+=2){
+            for(int k = j; k < weekDaySize; k+=2){
+                if(k != j && ((week[i][k] >= week[i][j] && week[i][k] <= week[i][j+1])||(week[i][k+1] >= week[i][j] && week[i][k+1] <= week[i][j+1]))){
+                    if((week[i][k] <= week[i][j] && week[i][k+1] >= week[i][j+1])||(week[i][k] >= week[i][j] && week[i][k+1] <= week[i][j+1])){
+                        return false;
+                    }
+                }                
             }
         }
     }
 
+    // the part above is hard to understand, and it means something below. Making Mondey as an example. 
+
+    // // Monday
+    // for(int i = 0; i < monSize; i += 2){
+    //     for(int j = i; j < monSize; j+= 2){
+    //         // four possibilities of failing to become a good schedule. 
+    //         if(j != i && ((monday[j] >= monday[i] && monday[j] <= monday[i+1])||(monday[j+1] >= monday[i] && monday[j+1] <= monday[i+1]))){
+    //             if((monday[j] <= monday[i] && monday[j+1] >= monday[i+1])||(monday[j] >= monday[i] && monday[j+1] <= monday[i+1])){
+    //                 return false;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // debug code
+    // cout << "Wednesday" << endl;
+    // for(unsigned int i = 0; i < week[2].size(); i++){
+    //     cout << week[2][i] << " " << endl; 
+    // }
     return true; 
 }
 
@@ -281,4 +250,3 @@ vector<Section> Schedule::scheduler() const {
 
     return selected; 
 }
-
