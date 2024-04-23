@@ -1,0 +1,49 @@
+y
+ITP216
+32080 Lecture 18 0 19 50 Th
+32081 Lecture 18 0 19 50 T
+End
+y
+ITP125
+31833 Lecture 19 0 19 50 M
+End
+y
+EASC150
+25800 Lecture 14 0 15 20 TTh
+25802 Discussion 9 0 9 50 M
+25804 Discussion 11 0 11 50 M
+25807 Discussion 9 0 9 50 T
+25810 Discussion 10 0 10 50 W
+25812 Discussion 12 0 12 50 W
+25820 Discussion 11 0 11 50 F
+End
+Y
+CSCI104
+29903 Lecture 12 30 13 50 TTh
+30397 Lecture 9 30 10 50 TTh
+29905 Lab 14 0 15 50 T
+29907 Lab 16 0 17 50 T
+29932 Lab 12 0 13 50 F
+29933 Lab 14 0 15 50 W
+30025 Quiz 19 0 20 50 F
+End
+Y
+BISC101
+13102 Lecture 8 30 9 50 WF
+13103 Lab 10 0 11 50 W
+13105 Lab 10 0 11 50 F
+13117 Lab 13 0 14 50 W
+End
+Y
+MATH225
+39547 Lecture 12 0 12 50 MWF
+39548 Discussion 12 0 12 50 TTh
+39549 Discussion 13 0 13 50 TTh
+End
+Y
+MATH408
+39638 Lecture 13 0 13 50 MWF
+39639 Discussion 12 0 12 50 TTh
+39640 Discussion 13 0 13 50 TTh
+End
+N
