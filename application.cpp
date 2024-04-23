@@ -69,7 +69,7 @@ int main(){
 
 
 
-    // other inputs
+    // If the user enters no, then we start to schedule the courses based on the user input. 
     if(add == "n" || add == "N"){
         // retrieve the list of courses entered
         vector<Course> courses = schd.get_courseList();
@@ -81,7 +81,9 @@ int main(){
         int size = selected.size();
         if(size != 0){
             cout << "found a schedule" << endl;
-            // find out which course the sections belong and print out the section info. 
+
+            // In this nested for loop, we are trying to find out which 
+            // course the sections belong and print out the section info. 
             for(unsigned int i = 0; i < size; i++){
                 for(int j = 0; j < num_of_courses; j++){
                     if(courses[j].isInThisCourse(selected[i])){
@@ -90,10 +92,11 @@ int main(){
                 }
                 selected[i].print_info();
             }
+
         }
 
         else{
-            cout << "We haven't found a schedule after 50 trials. " << endl;
+            cout << "We haven't found a schedule after 100 trials. " << endl;
         }
 
         // do one more time
@@ -124,7 +127,7 @@ int main(){
             cin >> answer;
         }
 
-        cout << "Thanks for using USC Schedule Helper. credit: Xinyang Xu. " << endl;
+        cout << "Thanks for using USCousefit. credit: Xinyang Xu. " << endl;
 
         return 0;
     }
