@@ -11,7 +11,7 @@ class Section{
     Section(string name, string type, int start, int end, string dates);
 
     // Accessors
-    string get_sectionName() const; // this is the unique identifier of a function
+    string get_sectionName() const; // this is the unique identifier of sections
     string get_type() const;
     void print_dates() const;
     vector<bool> get_dates() const; 
@@ -19,10 +19,10 @@ class Section{
     int get_endTime() const;
 
     // Debug function
-    // tests whether the notes are taken down appropriately, the accessors, and the print function. 
+    // tests whether the Section object has successfully recorded the data. 
     void print_info() const;
 
-    // Mutators
+    // Mutator. Change the dates_ member.
     void push_dates(bool date);
     
     private:
@@ -36,28 +36,28 @@ class Section{
 
 class Course{
     public:
+
     // Constructors, initializing constructors
     Course();
     Course(string name);
+
     // accessors
     string get_courseName() const;
-
     vector<Section> get_lectures() const {return lectures_; }
     vector<Section> get_discussions() const {return discussions_; }
     vector<Section> get_quizzes() const {return quizzes_; }
 
     // mutator
     void addSection(const Section& sectionInfo);
-
-    // Display info
-    void print_info() const;
-
     void add_lectures(const Section& sec){lectures_.push_back(sec); }
     void add_discussions(const Section& sec){discussions_.push_back(sec); }
     void add_quizzes(const Section& sec){quizzes_.push_back(sec); }
 
+    // Display info
+    void print_info() const;
+
     // identify whether a section is in this course
-    bool isInThisCourse( Section& sec);
+    bool isInThisCourse(Section& sec);
 
     private:
     string courseName_;
