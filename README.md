@@ -2,6 +2,8 @@
 
 USCoursefit is a scheduling application designed specifically for USC students to schedule desired courses and avoid time conflicts.
 
+<img src="logo.png" width="250" alt="USCoursefit Logo">
+
 ## Functionality
 
 This application allows USC students to input their desired courses and generates a schedule that avoids any time conflicts between them. It streamlines the course selection process and ensures that students can plan their academic terms more effectively.
