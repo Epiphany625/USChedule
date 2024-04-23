@@ -21,13 +21,11 @@ This application allows USC students to input their desired courses and generate
 
 To compile the application, please ensure you have downloaded `CourseSection.h`, `CourseSection.cpp`, and `application.cpp`. Use the following command in your terminal to compile the code:
 
-g++ -g application.cpp -o application
-
+`g++ -g application.cpp -o application`
 
 To run the executable file, use the command:
 
-./application
-
+`./application`
 
 ## Limitations and Future Improvements
 
