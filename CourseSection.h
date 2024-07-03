@@ -5,10 +5,13 @@
 using namespace std;
 
 class Section{
+
+    // Contains:
+    // Constructors, Accessors, Operator Overloadings, Mutators
     public:
     // Default constructor and initializing constructors
     Section();
-    Section(string name, string type, int start, int end, string dates);
+    Section(const string& name, const string& type, int start, int end, const string& dates);
 
     // Accessors
     string get_sectionName() const; // this is the unique identifier of sections
@@ -18,9 +21,16 @@ class Section{
     int get_startTime() const;
     int get_endTime() const;
 
+    // Operator overloading
+    // whether it is the same section
+    bool operator==(const Section& rhs);
+
+    // print the information of the section
+    friend ostream& operator<<(ostream& os, const Section& rhs);
+
     // Debug function
     // tests whether the Section object has successfully recorded the data. 
-    void print_info() const;
+    // void print_info() const;
 
     // Mutator. Change the dates_ member.
     void push_dates(bool date);
@@ -39,10 +49,10 @@ class Course{
 
     // Constructors, initializing constructors
     Course();
-    Course(string name);
+    Course(const string& name);
 
     // accessors
-    string get_courseName() const;
+    string get_courseName() const{ return courseName_; }
     vector<Section> get_lectures() const {return lectures_; }
     vector<Section> get_discussions() const {return discussions_; }
     vector<Section> get_quizzes() const {return quizzes_; }
@@ -53,8 +63,9 @@ class Course{
     void add_discussions(const Section& sec){discussions_.push_back(sec); }
     void add_quizzes(const Section& sec){quizzes_.push_back(sec); }
 
-    // Display info
-    void print_info() const;
+    // Operator overloading
+    // debug function
+    friend ostream& operator<<(ostream& os, const Course& rhs);
 
     // identify whether a section is in this course
     bool isInThisCourse(Section& sec);
@@ -82,11 +93,16 @@ public:
     void print_info() const;
 
     // Schedules sections based on the courses added
-    vector<Section> scheduler() const;
+    // returns a list of available schedules
+    vector< vector<Section> > findSchedule();
+    int findScheduleWithLatestStartTime() const; 
 
 private:
+    // private data members
     vector<Course> courseList_; // List of courses in the schedule
+    vector< vector<Section> > scheduleOptions_; // Options of available course schedules
 
-    // Determines whether the given schedule of sections meets criteria
+    // Helper function: determines whether the given schedule of sections meets criteria
     bool isGood(const vector<Section>& sections_to_take) const;
+
 };

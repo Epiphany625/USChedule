@@ -11,16 +11,22 @@ int to_second(int hour, int minute){
 }
 
 int main(){
+    // Initialize the Schedule object, which contains information for the courses the user
+    // is willing to take
     Schedule schd = Schedule();
+
+    // whether the user is going to add a course
     string add;
     cout << "Add a course? y/n" << endl;
     cin >> add;
 
+    // check the validity of user input
     while (add != "n" && add != "N" && add != "y" && add != "Y") {
         cout << "invalid input. Please try again. Enter y or n. " << endl;
         cin >> add;
     }
     
+    // the main segment. perform the course and section input. 
     while(add == "y" || add == "Y"){
         // read the course name
         string courseName;
@@ -59,8 +65,10 @@ int main(){
             if(type == "Quiz") cor.add_quizzes(sec);
         }
 
+        // already entered a complete course. add the course to the schedule 
         schd.addCourse(cor);
-
+    
+    // whether to add another course. 
     cout << "Add a course? y/n" << endl;
     cin >> add;
     }
@@ -77,59 +85,63 @@ int main(){
 
         // schd.print_info();
         cout << "trying to find a schedule" << endl; 
-        vector<Section> selected = schd.scheduler();
-        int size = selected.size();
+        vector< vector<Section> > selected = schd.findSchedule();
+        int size = selected.size(); // the number of possible combinations
+
         if(size != 0){
             cout << "found a schedule" << endl;
 
-            // In this nested for loop, we are trying to find out which 
-            // course the sections belong and print out the section info. 
-            for(unsigned int i = 0; i < size; i++){
-                for(int j = 0; j < num_of_courses; j++){
-                    if(courses[j].isInThisCourse(selected[i])){
-                        cout << courses[j].get_courseName() << endl;
-                    }
-                }
-                selected[i].print_info();
+            cout << "Please choose the option that matches your needs" << endl;
+            cout << "A: latest start time, on average" << endl;
+            cout << "B: give me a random schedule" << endl;
+            char option;
+            cin >> option;
+            if(cin.fail() || (option != 'A' && option != 'a' && option != 'B' && option != 'b')){
+                cout << "invalid selection" << endl; 
+                cout << "Please choose the option that matches your needs" << endl;
+                cin >> option;
             }
 
-        }
+            else if(option == 'A'|| option == 'a'){
+                // find a schedule with the latest start time, on average
+                int index = schd.findScheduleWithLatestStartTime();
 
-        else{
-            cout << "We haven't found a schedule after 100 trials. " << endl;
-        }
-
-        // do one more time
-        cout << "Wanna try again? y/n" << endl;
-        string answer;
-        cin >> answer;
-
-        while(answer == "y"){
-            // repeat the code above
-            selected = schd.scheduler();
-            int size = selected.size();
-            if(size != 0){
-                cout << "found a schedule" << endl;
-                for(unsigned int i = 0; i < size; i++){
+                // In this nested for loop, we are trying to find out which
+                // course the sections belong and print out the section info. 
+                for(unsigned int i = 0; i < selected[index].size(); i++){
                     for(int j = 0; j < num_of_courses; j++){
-                        if(courses[j].isInThisCourse(selected[i])){
+                        if(courses[j].isInThisCourse(selected[index][i])){
                             cout << courses[j].get_courseName() << endl;
                         }
                     }
-                    selected[i].print_info();
+
+                    cout << selected[index][i];
                 }
+
             }
 
-            else{
-                cout << "We haven't found a schedule after 100 trials. " << endl;
+            else if(option != 'B' || option != 'b'){
+                // choose the first found schedule, and check the corresponding course
+                for(unsigned int i = 0; i < selected[0].size(); i++){
+                    for(int j = 0; j < num_of_courses; j++){
+                        if(courses[j].isInThisCourse(selected[0][i])){
+                            cout << courses[j].get_courseName() << endl;
+                        }
+                    }
+
+                    cout << selected[0][i];
+                }                
             }
-            cout << "Wanna try again? y/n" << endl;
-            cin >> answer;
         }
 
-        cout << "Thanks for using USCousefit. credit: Xinyang Xu. " << endl;
+        else{
+            cout << "We haven't found a schedule after 1000 trials. " << endl;
+        }
+
+        cout << "Thanks for using USChedule. credit: Xinyang Xu. " << endl;
 
         return 0;
     }
+
     return 0;
 }
