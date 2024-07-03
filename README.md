@@ -1,6 +1,6 @@
-# USCoursefit
+# USChedule
 
-USCoursefit is a scheduling application designed specifically for USC students to schedule desired courses and avoid time conflicts.
+USChedule is a scheduling application designed specifically for USC students to schedule desired courses and avoid time conflicts.
 
 <p align="center">
   <img src="logos.png" width="300" alt="description">
