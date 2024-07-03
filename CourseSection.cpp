@@ -201,7 +201,7 @@ vector< vector<Section> > Schedule::findSchedule() {
     // repeat the process 1000 times
 
     // now, we are going to find the repetition time. 
-    int repetition = 2;
+    int repetition = 4;
     for(unsigned int i = 0; i < courseList_.size(); i++){
         unsigned char num_of_lectures = courseList_[i].get_lectures().size();
         unsigned char num_of_discussions = courseList_[i].get_discussions().size();

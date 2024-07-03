@@ -135,7 +135,7 @@ int main(){
         }
 
         else{
-            cout << "We haven't found a schedule after 1000 trials. " << endl;
+            cout << "We are highly confident that there doesn't exist a working schedule. " << endl;
         }
 
         cout << "Thanks for using USChedule. credit: Xinyang Xu. " << endl;
